@@ -1,0 +1,142 @@
+mysql> CREATE TABLE Students (name VARCHAR(50),  age INT, roll_no INT);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO Students (name, age, roll_no) VALUES ('Rishika', 22, 101),
+    -> ('Divya', 21, 102),
+    ->  ('Sujitha', 22, 103),
+    -> ('Prasanna', 22, 104),
+    -> ('Prajwala', 21, 105),
+    ->  ('Sahitha', 22, 106),
+    ->  ('Sumaja', 21, 107),
+    ->  ('Roshini', 21, 108);
+Query OK, 8 rows affected (0.03 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Students;
++----------+------+---------+
+| name     | age  | roll_no |
++----------+------+---------+
+| Rishika  |   22 |     101 |
+| Divya    |   21 |     102 |
+| Sujitha  |   22 |     103 |
+| Prasanna |   22 |     104 |
+| Prajwala |   21 |     105 |
+| Sahitha  |   22 |     106 |
+| Sumaja   |   21 |     107 |
+| Roshini  |   21 |     108 |
++----------+------+---------+
+8 rows in set (0.01 sec)
+
+
+mysql> ALTER TABLE Students RENAME COLUMN age TO student_age;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE Students SET student_age = 23 WHERE roll_no = 103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Students;
++----------+-------------+---------+
+| name     | student_age | roll_no |
++----------+-------------+---------+
+| Rishika  |          22 |     101 |
+| Divya    |          21 |     102 |
+| Sujitha  |          23 |     103 |
+| Prasanna |          22 |     104 |
+| Prajwala |          21 |     105 |
+| Sahitha  |          22 |     106 |
+| Sumaja   |          21 |     107 |
+| Roshini  |          21 |     108 |
++----------+-------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS total_students FROM Students;
++----------------+
+| total_students |
++----------------+
+|              8 |
++----------------+
+1 row in set (0.02 sec)
+
+mysql> CREATE TABLE Courses (roll_no INT, course_name VARCHAR(50));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO Courses (roll_no, course_name) VALUES (101, 'Mathematics'), (102, 'Physics'), (103, 'Chemistry'), (104, 'Biology'), (105, 'Mathematics'), (106, 'Physics'), (107, 'Chemistry'), (108, 'Biology');
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Courses;
++---------+-------------+
+| roll_no | course_name |
++---------+-------------+
+|     101 | Mathematics |
+|     102 | Physics     |
+|     103 | Chemistry   |
+|     104 | Biology     |
+|     105 | Mathematics |
+|     106 | Physics     |
+|     107 | Chemistry   |
+|     108 | Biology     |
++---------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT Students.name, Students.roll_no, Courses.course_name FROM Students JOIN Courses ON Students.roll_no = Courses.roll_no;
++----------+---------+-------------+
+| name     | roll_no | course_name |
++----------+---------+-------------+
+| Rishika  |     101 | Mathematics |
+| Divya    |     102 | Physics     |
+| Sujitha  |     103 | Chemistry   |
+| Prasanna |     104 | Biology     |
+| Prajwala |     105 | Mathematics |
+| Sahitha  |     106 | Physics     |
+| Sumaja   |     107 | Chemistry   |
+| Roshini  |     108 | Biology     |
++----------+---------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT Students.roll_no, Students.name, Courses.course_name FROM Students INNER JOIN Courses ON Students.roll_no = Courses.roll_no;
++---------+----------+-------------+
+| roll_no | name     | course_name |
++---------+----------+-------------+
+|     101 | Rishika  | Mathematics |
+|     102 | Divya    | Physics     |
+|     103 | Sujitha  | Chemistry   |
+|     104 | Prasanna | Biology     |
+|     105 | Prajwala | Mathematics |
+|     106 | Sahitha  | Physics     |
+|     107 | Sumaja   | Chemistry   |
+|     108 | Roshini  | Biology     |
++---------+----------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT Students.roll_no, Students.name, Courses.course_name FROM Students LEFT JOIN Courses ON Students.roll_no = Courses.roll_no;
++---------+----------+-------------+
+| roll_no | name     | course_name |
++---------+----------+-------------+
+|     101 | Rishika  | Mathematics |
+|     102 | Divya    | Physics     |
+|     103 | Sujitha  | Chemistry   |
+|     104 | Prasanna | Biology     |
+|     105 | Prajwala | Mathematics |
+|     106 | Sahitha  | Physics     |
+|     107 | Sumaja   | Chemistry   |
+|     108 | Roshini  | Biology     |
++---------+----------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT Students.roll_no, Students.name, Courses.course_name FROM Students RIGHT JOIN Courses ON Students.roll_no = Courses.roll_no;
++---------+----------+-------------+
+| roll_no | name     | course_name |
++---------+----------+-------------+
+|     101 | Rishika  | Mathematics |
+|     102 | Divya    | Physics     |
+|     103 | Sujitha  | Chemistry   |
+|     104 | Prasanna | Biology     |
+|     105 | Prajwala | Mathematics |
+|     106 | Sahitha  | Physics     |
+|     107 | Sumaja   | Chemistry   |
+|     108 | Roshini  | Biology     |
++---------+----------+-------------+
+8 rows in set (0.00 sec)
